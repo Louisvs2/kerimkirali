@@ -1,14 +1,17 @@
-// Placeholder content for the default homepage. Replaced per client from
-// the CLIENT.md briefing — no line of this file may survive a client launch.
-// Structure and tone demonstrate the intended quality bar (DESIGN.md §14).
+// Homepage content for Kerem Kirali — Hairstylist & Barber. Section order
+// follows the client's own briefing (Website-Struktur): Hero → Über Kerem →
+// Dienstleistungen → Warum Kerem Kirali → Galerie → Bewertungen → CTA.
 
-import type { Service } from "@/components/sections/features";
-import type { FaqItem } from "@/components/sections/faq";
-import type { ProcessStep } from "@/components/sections/process";
-import type { Stat } from "@/components/sections/stats";
-import type { Testimonial } from "@/components/shared/testimonial-card";
-import { services } from "@/content/services";
-import type { Action, SectionIntro } from "@/types/content";
+import { CalendarCheck, Handshake, Scissors, Target } from "lucide-react";
+
+import type { Feature } from "@/components/sections/features";
+import { serviceCategories } from "@/content/services";
+import type {
+  Action,
+  HeroVideoMedia,
+  SectionImage,
+  SectionIntro,
+} from "@/types/content";
 
 interface HomeContent {
   hero: {
@@ -16,137 +19,144 @@ interface HomeContent {
     title: string;
     subtitle: string;
     actions: { primary: Action; secondary: Action };
+    media: HeroVideoMedia;
   };
-  services: { intro: SectionIntro; items: Service[] };
-  stats: Stat[];
-  process: { intro: SectionIntro; steps: ProcessStep[] };
-  testimonials: { intro: SectionIntro; items: Testimonial[] };
-  faq: { intro: SectionIntro; items: FaqItem[] };
+  aboutTeaser: {
+    intro: SectionIntro;
+    paragraph: string;
+    action: Action;
+  };
+  services: { intro: SectionIntro; items: Feature[] };
+  why: { intro: SectionIntro; items: Feature[] };
+  gallery: { intro: SectionIntro; images: SectionImage[] };
+  reviews: {
+    intro: SectionIntro;
+    rating: { value: number; platform: string };
+    highlights: string[];
+  };
   cta: { title: string; subtitle: string; action: Action; note: string };
 }
 
 export const home: HomeContent = {
   hero: {
-    eyebrow: "Platzhalter-Eyebrow",
-    title: "Ein klares Versprechen in einem Satz",
+    eyebrow: "Hairstylist & Barber in Kassel",
+    title: "Kerem Kirali",
     subtitle:
-      "Ein unterstützender Satz, der das Versprechen konkretisiert: für wen, mit welchem Ergebnis und warum dieses Unternehmen die richtige Wahl ist.",
+      "Individuelle Beratung, präzises Handwerk und ein Look, der zu Ihnen passt — nicht zum Trend. Wer Qualität sucht, ist hier richtig.",
     actions: {
-      primary: { label: "Projekt anfragen", href: "/kontakt" },
+      primary: { label: "Termin vereinbaren", href: "/kontakt#termin" },
       secondary: { label: "Leistungen ansehen", href: "/leistungen" },
     },
+    media: {
+      type: "video",
+      src: "/videos/hero.mp4",
+      webmSrc: "/videos/hero.webm",
+      poster: "/videos/hero-poster.jpg",
+      alt: "Kerem Kirali schneidet einem Kunden im Salon die Haare",
+    },
+  },
+  aboutTeaser: {
+    intro: {
+      eyebrow: "Der Inhaber",
+      title: "Kreativität, Disziplin, Persönlichkeit",
+    },
+    paragraph:
+      "Kerem Kirali ist eine Mischung aus Kreativität, Disziplin und Persönlichkeit, die ihm mit der Zeit zu einer Institution in Kassel gemacht hat. Ein kreativer Perfektionist, inspiriert von ehrlichem Handwerk und wahrer Schönheit — und vor allem ein aufrichtiger Zuhörer, der nicht nur in Stilfragen stets den richtigen Ton findet.",
+    action: { label: "Mehr über Kerem erfahren", href: "/ueber-uns" },
   },
   services: {
     intro: {
-      eyebrow: "Leistungen",
-      title: "Was wir für Sie tun",
+      eyebrow: "Dienstleistungen",
+      title: "Für jeden Anspruch der passende Schnitt",
       subtitle:
-        "Drei bis vier Kernleistungen, jeweils als Ergebnis für den Kunden formuliert — nicht als Fähigkeit des Unternehmens.",
+        "Vier Kategorien, ein Qualitätsanspruch — von präzisen Herrenschnitten bis zu individuellen Farbkonzepten.",
     },
-    items: services.map((service) => ({
-      icon: service.icon,
-      title: service.title,
-      description: service.excerpt,
-      href: `/leistungen/${service.slug}`,
+    items: serviceCategories.map((category) => ({
+      icon: category.icon,
+      title: category.title,
+      description: category.teaser,
     })),
   },
-  stats: [
-    { value: 120, suffix: "+", label: "Abgeschlossene Projekte" },
-    { value: 15, label: "Jahre Erfahrung" },
-    { value: 98, suffix: " %", label: "Weiterempfehlungsrate" },
-    { value: 24, suffix: " h", label: "Antwortzeit, garantiert" },
-  ],
-  process: {
+  why: {
     intro: {
-      eyebrow: "So arbeiten wir",
-      title: "In drei Schritten zum Ergebnis",
-      subtitle:
-        "Ein transparenter Ablauf nimmt die Unsicherheit aus der Entscheidung.",
-    },
-    steps: [
-      {
-        title: "Kennenlernen",
-        description:
-          "Ein unverbindliches Erstgespräch: Ausgangslage, Ziele und ob wir zusammenpassen. Danach wissen beide Seiten, woran sie sind.",
-      },
-      {
-        title: "Konzept & Angebot",
-        description:
-          "Ein konkreter Vorschlag mit klarem Umfang, Zeitplan und Festpreis — keine Überraschungen, keine versteckten Kosten.",
-      },
-      {
-        title: "Umsetzung & Übergabe",
-        description:
-          "Umsetzung mit regelmäßigen Zwischenständen und einer sauberen Übergabe inklusive allem, was Sie für den Betrieb brauchen.",
-      },
-    ],
-  },
-  testimonials: {
-    intro: {
-      eyebrow: "Referenzen",
-      title: "Was Kundinnen und Kunden sagen",
+      eyebrow: "Warum Kerem Kirali",
+      title: "Qualität statt Masse",
     },
     items: [
       {
-        quote:
-          "Ein konkretes Zitat mit einem messbaren Ergebnis wirkt stärker als jedes Eigenlob. Dieser Platzhalter zeigt die ideale Länge.",
-        name: "Vorname Nachname",
-        role: "Position, Unternehmen",
+        icon: Target,
+        title: "Individuelle Typberatung",
+        description:
+          "Kein Trend von der Stange: jeder Schnitt wird auf Gesichtsform, Kopfform und Haarstruktur abgestimmt.",
       },
       {
-        quote:
-          "Zwei bis drei Sätze, die ein echtes Projekt beschreiben: Ausgangslage, Zusammenarbeit und was sich danach verbessert hat.",
-        name: "Vorname Nachname",
-        role: "Position, Unternehmen",
+        icon: CalendarCheck,
+        title: "Ausschließlich auf Termin",
+        description:
+          "Keine Hektik, keine langen Wartezeiten — volle Aufmerksamkeit für jeden Gast.",
       },
       {
-        quote:
-          "Nur echte Stimmen mit echtem Namen und Einverständnis verwenden — anonyme Zitate schaden mehr, als sie nützen.",
-        name: "Vorname Nachname",
-        role: "Position, Unternehmen",
+        icon: Scissors,
+        title: "Handwerk auf höchstem Niveau",
+        description:
+          "Präzise Techniken, hochwertige Produkte und ein Auge fürs Detail, das man sieht.",
+      },
+      {
+        icon: Handshake,
+        title: "Vertrauen & Persönlichkeit",
+        description:
+          "Ein Ort zum Ankommen — nicht nur ein Haarschnitt, sondern eine Auszeit vom Alltag.",
+      },
+    ] satisfies Feature[],
+  },
+  gallery: {
+    intro: {
+      eyebrow: "Galerie",
+      title: "Ein Blick in den Salon",
+    },
+    images: [
+      {
+        src: "/images/salon/kerem-cutting.jpg",
+        alt: "Kerem Kirali bei der Arbeit an einem Herrenschnitt",
+      },
+      {
+        src: "/images/salon/interior-1.jpg",
+        alt: "Innenraum des Salons mit Barbierstühlen und Spiegeln",
+      },
+      {
+        src: "/images/salon/chair-detail.jpg",
+        alt: "Detailaufnahme eines Barbierstuhls",
+      },
+      {
+        src: "/images/salon/interior-2.jpg",
+        alt: "Blick durch den Salon Richtung Empfang",
       },
     ],
   },
-  faq: {
+  reviews: {
     intro: {
-      eyebrow: "FAQ",
-      title: "Häufige Fragen",
-      subtitle:
-        "Die echten Fragen aus Anfragen und Gesprächen — inklusive der unbequemen zu Preis und Dauer.",
+      eyebrow: "Bewertungen",
+      title: "Was Gäste immer wieder sagen",
     },
-    items: [
-      {
-        question: "Was kostet ein Projekt?",
-        answer:
-          "Eine ehrliche Antwort mit Preisrahmen oder Einstiegspreis. Die Preisfrage offen zu beantworten schafft Vertrauen und filtert unpassende Anfragen.",
-      },
-      {
-        question: "Wie lange dauert die Umsetzung?",
-        answer:
-          "Ein realistischer Zeitrahmen mit den wichtigsten Einflussfaktoren, damit Interessenten planen können.",
-      },
-      {
-        question: "Wie läuft die Zusammenarbeit ab?",
-        answer:
-          "Kurzfassung des Prozesses mit Verweis auf die Prozess-Sektion: Erstgespräch, Angebot, Umsetzung, Übergabe.",
-      },
-      {
-        question: "Was passiert nach der Anfrage?",
-        answer:
-          "Konkret beschreiben, was der nächste Schritt ist und wie schnell eine Antwort kommt — das senkt die Hürde vor dem Absenden.",
-      },
-      {
-        question: "Eine unbequeme, aber ehrliche Frage?",
-        answer:
-          "Auch Einwände offen beantworten. Wer die kritischen Fragen selbst stellt und beantwortet, wirkt souverän.",
-      },
+    rating: { value: 5.0, platform: "Planity" },
+    highlights: [
+      "Bester Friseur in Kassel",
+      "Sehr präzise Schnitte",
+      "Hohe Fachkompetenz",
+      "Freundlicher Service",
+      "Modernes Ambiente",
+      "Saubere Arbeit",
+      "Professionelle Beratung",
+      "Angemessene Preise",
+      "Entspannte Atmosphäre",
+      "Exzellente Fade-Technik",
     ],
   },
   cta: {
-    title: "Bereit für den nächsten Schritt?",
+    title: "Bereit für Ihren perfekten Look?",
     subtitle:
-      "Ein letzter, ruhiger Aufruf ohne Druck: das Angebot in einem Satz und die Einladung, ins Gespräch zu kommen.",
-    action: { label: "Kostenloses Erstgespräch vereinbaren", href: "/kontakt" },
-    note: "Unverbindlich. Antwort innerhalb von 24 Stunden.",
+      "Der Salon arbeitet ausschließlich auf Terminbasis — damit Sie die volle Aufmerksamkeit bekommen, die Sie verdienen.",
+    action: { label: "Termin vereinbaren", href: "/kontakt#termin" },
+    note: "Friedrich-Ebert-Straße 53, 34117 Kassel",
   },
 };

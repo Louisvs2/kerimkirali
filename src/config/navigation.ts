@@ -31,7 +31,7 @@ const mainNav: NavItem[] = [
 
 export const navigation: NavigationConfig = {
   main: mainNav,
-  cta: { label: "Kontakt aufnehmen", href: "/kontakt" },
+  cta: { label: "Termin vereinbaren", href: "/kontakt#termin" },
   footer: [{ title: "Navigation", items: mainNav }],
   legal: [
     { label: "Impressum", href: "/impressum" },

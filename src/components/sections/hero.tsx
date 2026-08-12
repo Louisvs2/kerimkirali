@@ -9,7 +9,12 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { HeroVisual } from "@/components/sections/hero-visual";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { Action, HeroMedia, SectionImage } from "@/types/content";
+import type {
+  Action,
+  HeroImageMedia,
+  HeroMedia,
+  HeroVideoMedia,
+} from "@/types/content";
 
 interface HeroActions {
   primary: Action;
@@ -268,18 +273,24 @@ export function HeroStatement({
   );
 }
 
-/** Full-width hero: a full-bleed background image with overlaid content.
- *  The image is the LCP element; a scrim guarantees text contrast on any
- *  image (DESIGN.md §12). Text is light-on-dark and therefore theme-neutral. */
+/** Full-width hero: a full-bleed background image or video with overlaid
+ *  content. The media is the LCP element; a scrim guarantees text contrast
+ *  on any media (DESIGN.md §12). Text is light-on-dark and therefore
+ *  theme-neutral. Video autoplays muted/looped and is CSS-only gated behind
+ *  `prefers-reduced-motion` (the poster image shows instead) — no client
+ *  JavaScript needed, so this stays a Server Component. */
 export function HeroFullWidth({
   eyebrow,
   title,
   subtitle,
   actions,
-  image,
+  media,
   align = "center",
   className,
-}: HeroBaseProps & { image: SectionImage; align?: "center" | "start" }) {
+}: HeroBaseProps & {
+  media: HeroImageMedia | HeroVideoMedia;
+  align?: "center" | "start";
+}) {
   const centered = align === "center";
   return (
     <section
@@ -288,15 +299,43 @@ export function HeroFullWidth({
         className,
       )}
     >
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover"
-      />
-      {/* Even scrim for legible light text on any image (DESIGN.md §12). */}
+      {media.type === "video" ? (
+        <>
+          {media.poster && (
+            <Image
+              src={media.poster}
+              alt={media.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="-z-10 object-cover motion-safe:hidden motion-reduce:block"
+            />
+          )}
+          <video
+            className="absolute inset-0 -z-10 size-full object-cover motion-reduce:hidden"
+            poster={media.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-label={media.alt}
+          >
+            {media.webmSrc && <source src={media.webmSrc} type="video/webm" />}
+            <source src={media.src} type="video/mp4" />
+          </video>
+        </>
+      ) : (
+        <Image
+          src={media.src}
+          alt={media.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover"
+        />
+      )}
+      {/* Even scrim for legible light text on any media (DESIGN.md §12). */}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/55 to-black/70"

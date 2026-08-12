@@ -1,9 +1,11 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { Section, type SectionBackground } from "@/components/layout/section";
 import { FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
+import type { OpeningHoursEntry } from "@/config/site";
+import { telHref } from "@/lib/utils";
 import type { SectionIntro } from "@/types/content";
 
 interface ContactSectionProps {
@@ -12,6 +14,9 @@ interface ContactSectionProps {
   phone?: string;
   /** Address lines, rendered as-is. */
   address?: string[];
+  openingHours?: OpeningHoursEntry[];
+  /** Anchor id — nav CTAs can link straight to `#id`. */
+  id?: string;
   /** Slot for the contact form (added in Phase 4 per PLAN.md §10). */
   children?: React.ReactNode;
   background?: SectionBackground;
@@ -50,12 +55,14 @@ export function ContactSection({
   email,
   phone,
   address,
+  openingHours,
+  id,
   children,
   background,
   className,
 }: ContactSectionProps) {
   return (
-    <Section background={background} className={className}>
+    <Section id={id} background={background} className={className}>
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <FadeIn className="flex flex-col gap-10">
@@ -74,7 +81,7 @@ export function ContactSection({
               {phone && (
                 <ContactChannel icon={Phone} label="Telefon">
                   <a
-                    href={`tel:${phone.replace(/[^+\d]/g, "")}`}
+                    href={telHref(phone)}
                     className="transition-colors hover:text-foreground"
                   >
                     {phone}
@@ -90,6 +97,18 @@ export function ContactSection({
                       </span>
                     ))}
                   </p>
+                </ContactChannel>
+              )}
+              {openingHours && openingHours.length > 0 && (
+                <ContactChannel icon={Clock} label="Öffnungszeiten">
+                  <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+                    {openingHours.map((entry) => (
+                      <div key={entry.day} className="contents">
+                        <dt>{entry.day}</dt>
+                        <dd className="text-right">{entry.hours}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </ContactChannel>
               )}
             </div>

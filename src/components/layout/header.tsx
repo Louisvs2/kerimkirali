@@ -2,9 +2,9 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { Logo } from "@/components/shared/logo";
 import { Button } from "@/components/ui/button";
 import { navigation } from "@/config/navigation";
-import { siteConfig } from "@/config/site";
 
 // Sticky site header, fully config-driven. The translucent background with
 // backdrop blur works without any scroll listener, so the header (and the
@@ -14,13 +14,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="text-base font-semibold tracking-tight"
-          aria-label={`${siteConfig.name} – Startseite`}
-        >
-          {siteConfig.name}
-        </Link>
+        <Logo />
         <nav
           aria-label="Hauptnavigation"
           className="hidden items-center gap-8 md:flex"

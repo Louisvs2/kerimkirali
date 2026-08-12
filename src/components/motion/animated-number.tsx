@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 
 import { cn } from "@/lib/utils";
@@ -10,6 +10,8 @@ interface AnimatedNumberProps {
   prefix?: string;
   suffix?: string;
   locale?: string;
+  /** Fixed decimal places, e.g. 1 for a "4,9" rating. Defaults to 0. */
+  decimals?: number;
   className?: string;
 }
 
@@ -25,11 +27,21 @@ export function AnimatedNumber({
   prefix = "",
   suffix = "",
   locale = "de-DE",
+  decimals = 0,
   className,
 }: AnimatedNumberProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
   const reduceMotion = useReducedMotion();
+
+  const format = useCallback(
+    (n: number) =>
+      n.toLocaleString(locale, {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }),
+    [locale, decimals],
+  );
 
   useEffect(() => {
     const element = ref.current;
@@ -40,16 +52,16 @@ export function AnimatedNumber({
     const tick = (now: number) => {
       const progress = Math.min((now - start) / DURATION_MS, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      element.textContent = `${prefix}${Math.round(eased * value).toLocaleString(locale)}${suffix}`;
+      element.textContent = `${prefix}${format(eased * value)}${suffix}`;
       if (progress < 1) frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [isInView, reduceMotion, value, prefix, suffix, locale]);
+  }, [isInView, reduceMotion, value, prefix, suffix, format]);
 
   return (
     <span ref={ref} className={cn("tabular-nums", className)}>
-      {`${prefix}${value.toLocaleString(locale)}${suffix}`}
+      {`${prefix}${format(value)}${suffix}`}
     </span>
   );
 }

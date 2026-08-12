@@ -39,8 +39,10 @@ export interface HeroImageMedia {
  *  prefers-reduced-motion it does not autoplay and shows the poster. */
 export interface HeroVideoMedia {
   type: "video";
-  /** Video file URL (mp4/webm). */
+  /** H.264 video file URL — the universally-supported fallback. */
   src: string;
+  /** Optional VP9/WebM source, offered first (smaller, but not universal). */
+  webmSrc?: string;
   /** Poster frame — shown before play and when motion is reduced. */
   poster?: string;
   /** Accessible description of the video content. */

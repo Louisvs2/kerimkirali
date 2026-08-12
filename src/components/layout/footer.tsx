@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
+import { Logo } from "@/components/shared/logo";
 import { navigation } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 
@@ -13,10 +14,8 @@ export function Footer() {
       <Container className="py-16 lg:py-20">
         <div className="flex flex-col gap-10 md:flex-row md:justify-between">
           <div className="max-w-xs">
-            <p className="text-base font-semibold tracking-tight">
-              {siteConfig.name}
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            <Logo />
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
             </p>
           </div>

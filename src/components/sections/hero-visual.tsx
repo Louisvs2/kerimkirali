@@ -45,7 +45,8 @@ export function HeroVisual({
           preload={priority ? "auto" : "metadata"}
           aria-label={media.alt}
         >
-          <source src={media.src} />
+          {media.webmSrc && <source src={media.webmSrc} type="video/webm" />}
+          <source src={media.src} type="video/mp4" />
         </video>
       </div>
     );

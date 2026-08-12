@@ -1,126 +1,114 @@
-// Placeholder services for the template. Replaced per client from the
-// CLIENT.md briefing (§4) — slugs, titles, and copy are all placeholders.
-// This file is the single source for service slugs: the homepage cards,
-// the overview page, and the detail routes all derive from it.
+// Real content for Kerem Kirali — Hairstylist & Barber, sourced from the
+// client briefing (Dienstleistungen, Besonderheiten). Categories drive both
+// the homepage teaser and the full /leistungen page — one source of truth.
 
-import { Compass, PenTool, Rocket, type LucideIcon } from "lucide-react";
+import {
+  Droplets,
+  Scissors,
+  Sparkles,
+  User,
+  type LucideIcon,
+} from "lucide-react";
 
-import type { Feature } from "@/components/sections/features";
-import type { FaqItem } from "@/components/sections/faq";
-import type { SectionIntro } from "@/types/content";
-
-export interface ServiceDetail {
+export interface ServiceCategory {
   slug: string;
   icon: LucideIcon;
   title: string;
-  /** Short card/teaser description, also used as meta description. */
-  excerpt: string;
-  hero: { title: string; subtitle: string };
-  featuresIntro: SectionIntro;
-  features: Feature[];
-  faq?: FaqItem[];
+  /** One-sentence teaser, used on the homepage. */
+  teaser: string;
+  items: string[];
 }
 
-const sharedFeatures: Feature[] = [
+export const serviceCategories: ServiceCategory[] = [
   {
-    title: "Bestandteil Eins",
-    description:
-      "Ein konkreter Bestandteil dieser Leistung, als Ergebnis für den Kunden formuliert.",
-  },
-  {
-    title: "Bestandteil Zwei",
-    description:
-      "Ein konkreter Bestandteil dieser Leistung, als Ergebnis für den Kunden formuliert.",
-  },
-  {
-    title: "Bestandteil Drei",
-    description:
-      "Ein konkreter Bestandteil dieser Leistung, als Ergebnis für den Kunden formuliert.",
-  },
-  {
-    title: "Bestandteil Vier",
-    description:
-      "Ein konkreter Bestandteil dieser Leistung, als Ergebnis für den Kunden formuliert.",
-  },
-];
-
-export const services: ServiceDetail[] = [
-  {
-    slug: "leistung-eins",
-    icon: Compass,
-    title: "Leistung Eins",
-    excerpt:
-      "Zwei Sätze zum Ergebnis dieser Leistung: Was hat der Kunde am Ende in der Hand, und welches Problem ist damit gelöst?",
-    hero: {
-      title: "Leistung Eins: das Versprechen in einem Satz",
-      subtitle:
-        "Zwei bis drei Sätze, die die Leistung aus Sicht des Kunden beschreiben: Ausgangslage, Vorgehen und das konkrete Ergebnis.",
-    },
-    featuresIntro: {
-      eyebrow: "Leistungsumfang",
-      title: "Was enthalten ist",
-    },
-    features: sharedFeatures,
-    faq: [
-      {
-        question: "Eine häufige Frage zu dieser Leistung?",
-        answer:
-          "Eine ehrliche, konkrete Antwort — die echten Fragen aus Kundengesprächen konvertieren am besten.",
-      },
-      {
-        question: "Was kostet diese Leistung?",
-        answer:
-          "Ein Preisrahmen oder Einstiegspreis. Offenheit bei der Preisfrage schafft Vertrauen und filtert unpassende Anfragen.",
-      },
+    slug: "herren",
+    icon: Scissors,
+    title: "Herren",
+    teaser:
+      "Präzise Schnitte und Barbierarbeiten — von klassisch bis modern, inklusive Skin Fade und Bartpflege.",
+    items: [
+      "Waschen",
+      "Schneiden",
+      "Föhnen",
+      "Klassische Haarschnitte",
+      "Moderne Haarschnitte",
+      "Skin Fade",
+      "Bartpflege",
+      "Bartrasur",
+      "Konturen",
+      "Maschinenhaarschnitt",
+      "Typberatung",
+      "Augenbrauenpflege",
     ],
   },
   {
-    slug: "leistung-zwei",
-    icon: PenTool,
-    title: "Leistung Zwei",
-    excerpt:
-      "Zwei Sätze zum Ergebnis dieser Leistung: Was hat der Kunde am Ende in der Hand, und welches Problem ist damit gelöst?",
-    hero: {
-      title: "Leistung Zwei: das Versprechen in einem Satz",
-      subtitle:
-        "Zwei bis drei Sätze, die die Leistung aus Sicht des Kunden beschreiben: Ausgangslage, Vorgehen und das konkrete Ergebnis.",
-    },
-    featuresIntro: {
-      eyebrow: "Leistungsumfang",
-      title: "Was enthalten ist",
-    },
-    features: sharedFeatures,
+    slug: "damen",
+    icon: User,
+    title: "Damen",
+    teaser:
+      "Haarschnitt, Styling und individuelle Farbkonzepte — von Balayage bis zur passenden Tönung.",
+    items: [
+      "Haarschnitt",
+      "Styling",
+      "Coloration",
+      "Balayage",
+      "Strähnen",
+      "Tönungen",
+      "Haarpflege",
+      "Individuelle Farbkonzepte",
+    ],
   },
   {
-    slug: "leistung-drei",
-    icon: Rocket,
-    title: "Leistung Drei",
-    excerpt:
-      "Zwei Sätze zum Ergebnis dieser Leistung: Was hat der Kunde am Ende in der Hand, und welches Problem ist damit gelöst?",
-    hero: {
-      title: "Leistung Drei: das Versprechen in einem Satz",
-      subtitle:
-        "Zwei bis drei Sätze, die die Leistung aus Sicht des Kunden beschreiben: Ausgangslage, Vorgehen und das konkrete Ergebnis.",
-    },
-    featuresIntro: {
-      eyebrow: "Leistungsumfang",
-      title: "Was enthalten ist",
-    },
-    features: sharedFeatures,
+    slug: "barber",
+    icon: Droplets,
+    title: "Barber",
+    teaser:
+      "Bartpflege und Nassrasur mit traditionellem Handwerk und modernen Konturen.",
+    items: ["Bart trimmen", "Bart rasieren", "Nassrasur", "Konturen", "Pflege"],
+  },
+  {
+    slug: "pflege",
+    icon: Sparkles,
+    title: "Pflege",
+    teaser:
+      "Hochwertige Produkte und Wellness-Behandlungen für Haar, Augenbrauen und Wimpern.",
+    items: [
+      "Hochwertige Haarpflege",
+      "Professionelle Produkte",
+      "Wellness",
+      "Gesichtsbehandlungen",
+      "Augenbrauen",
+      "Wimpern",
+      "Fadentechnik",
+    ],
   },
 ];
 
+export const masterHaircut = {
+  eyebrow: "Signature-Service",
+  title: "Der Master Haircut",
+  description:
+    "Ein besonderes Angebot mit ausführlicher Typberatung: Gesichtsform, Kopfform, Haarstruktur, Haardichte und Haarstärke werden analysiert. Der Schnitt erfolgt nach einem geometrischen Haarschneidesystem und wird individuell auf den Kunden abgestimmt.",
+  analysis: [
+    "Gesichtsform",
+    "Kopfform",
+    "Haarstruktur",
+    "Haardichte",
+    "Haarstärke",
+  ],
+};
+
 export const servicesPage = {
   hero: {
-    title: "Leistungen im Überblick",
+    eyebrow: "Leistungen",
+    title: "Handwerk auf höchstem Niveau",
     subtitle:
-      "Ein einleitender Satz, der das Leistungsspektrum zusammenfasst und die Auswahl erleichtert.",
+      "Von präzisen Herrenschnitten über individuelle Farbkonzepte bis zum Master Haircut — jede Leistung beginnt mit einer ehrlichen Beratung.",
   },
   cta: {
-    title: "Nicht sicher, was Sie brauchen?",
+    title: "Nicht sicher, welcher Schnitt zu Ihnen passt?",
     subtitle:
-      "Im kostenlosen Erstgespräch klären wir gemeinsam, welcher Weg zu Ihrem Vorhaben passt.",
-    action: { label: "Erstgespräch vereinbaren", href: "/kontakt" },
-    note: "Unverbindlich. Antwort innerhalb von 24 Stunden.",
+      "Im persönlichen Gespräch finden wir gemeinsam den Look, der zu Ihnen passt.",
+    action: { label: "Termin vereinbaren", href: "/kontakt#termin" },
   },
 };

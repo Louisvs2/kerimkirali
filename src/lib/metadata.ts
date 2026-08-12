@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
+// `||` (not `??`) on purpose: an env var present but set to an empty string
+// must also fall back — `new URL("")` throws and breaks the whole build.
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 ).replace(/\/$/, "");
 
 interface PageMetadataInput {

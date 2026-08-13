@@ -33,7 +33,6 @@ export default function HomePage() {
       <HeroFullWidth
         eyebrow={home.hero.eyebrow}
         title={home.hero.title}
-        subtitle={home.hero.subtitle}
         actions={home.hero.actions}
         media={home.hero.media}
         logo={siteConfig.logo}

@@ -16,7 +16,6 @@ interface HomeContent {
   hero: {
     eyebrow: string;
     title: string;
-    subtitle: string;
     actions: { primary: Action; secondary: Action };
     media: HeroVideoMedia;
   };
@@ -46,8 +45,6 @@ export const home: HomeContent = {
   hero: {
     eyebrow: "Hairstylist & Barber in Kassel",
     title: "Kerem Kirali",
-    subtitle:
-      "Individuelle Beratung, präzises Handwerk und ein Look, der zu Ihnen passt — nicht zum Trend. Wer Qualität sucht, ist hier richtig.",
     actions: {
       primary: { label: "Termin vereinbaren", href: "/kontakt#termin" },
       secondary: { label: "Leistungen ansehen", href: "/leistungen" },

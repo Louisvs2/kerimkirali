@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { fontVariables } from "@/lib/fonts";
 import { siteUrl } from "@/lib/metadata";
 import { hairSalonSchema } from "@/lib/schema";
+import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 
 import "@/styles/globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="de" data-look={activeLook} className={`dark ${fontVariables}`}>
       <body>
         {children}
+        <WhatsAppButton />
         <script
           type="application/ld+json"
           // Fully typed, server-generated JSON — never user input.

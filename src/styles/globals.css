@@ -212,18 +212,18 @@
     pointer-events: none;
     background:
       radial-gradient(
-        44rem 32rem at 12% -6%,
-        color-mix(in oklch, var(--brand) 16%, transparent),
+        50rem 38rem at 12% -6%,
+        color-mix(in oklch, var(--brand) 26%, transparent),
         transparent 65%
       ),
       radial-gradient(
-        38rem 30rem at 92% 18%,
-        color-mix(in oklch, var(--brand) 10%, transparent),
+        44rem 36rem at 92% 18%,
+        color-mix(in oklch, var(--brand) 18%, transparent),
         transparent 60%
       ),
       radial-gradient(
-        50rem 40rem at 50% 108%,
-        color-mix(in oklch, var(--brand) 8%, transparent),
+        56rem 46rem at 50% 108%,
+        color-mix(in oklch, var(--brand) 15%, transparent),
         transparent 60%
       );
   }

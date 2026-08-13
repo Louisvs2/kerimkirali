@@ -345,6 +345,13 @@ export function HeroFullWidth({
         aria-hidden
         className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/55 to-black/70"
       />
+      {/* Dissolves the video into the page's solid background before the
+          section ends, so whatever follows (any colour, any media) meets
+          it without a visible seam. */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-b from-transparent to-background sm:h-56"
+      />
       <Container>
         <FadeInStagger
           className={cn(
@@ -378,7 +385,7 @@ export function HeroFullWidth({
           </FadeIn>
           {subtitle && (
             <FadeIn>
-              <p className="max-w-2xl text-lg leading-relaxed text-pretty text-white/80 sm:text-xl">
+              <p className="max-w-sm text-base leading-relaxed text-pretty text-white/80 sm:max-w-2xl sm:text-lg lg:text-xl">
                 {subtitle}
               </p>
             </FadeIn>

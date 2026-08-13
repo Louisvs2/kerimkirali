@@ -59,19 +59,22 @@
 }
 
 .dark {
-  --background: oklch(0.145 0.004 80);
+  /* True black ground per the client brief ("Schwarz, Anthrazit") — every
+     surface below sits only a hair above this, so alternating sections read
+     as one continuous black space instead of a grey/black checkerboard. */
+  --background: oklch(0.05 0.002 80);
   --foreground: oklch(0.985 0.002 85);
-  --card: oklch(0.205 0.004 80);
+  --card: oklch(0.08 0.003 80);
   --card-foreground: oklch(0.985 0.002 85);
-  --popover: oklch(0.205 0.004 80);
+  --popover: oklch(0.08 0.003 80);
   --popover-foreground: oklch(0.985 0.002 85);
   --primary: oklch(0.922 0.004 85);
   --primary-foreground: oklch(0.205 0.006 60);
-  --secondary: oklch(0.269 0.005 80);
+  --secondary: oklch(0.13 0.004 80);
   --secondary-foreground: oklch(0.985 0.002 85);
-  --muted: oklch(0.269 0.005 80);
-  --muted-foreground: oklch(0.708 0.01 80);
-  --accent: oklch(0.269 0.006 80);
+  --muted: oklch(0.09 0.003 80);
+  --muted-foreground: oklch(0.66 0.01 80);
+  --accent: oklch(0.13 0.004 80);
   --accent-foreground: oklch(0.985 0.002 85);
   --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: oklch(0.985 0 0);
@@ -82,6 +85,9 @@
   --brand: oklch(0.8 0.13 82);
   --brand-strong: oklch(0.8 0.13 82);
   --brand-foreground: oklch(0.18 0.02 70);
+  /* Frosted-glass surface: a hint of the ambient glow (see body::before)
+     shows through, instead of a flat, opaque grey panel. */
+  --surface: oklch(1 0 0 / 4%);
 }
 
 /* ===== Look: EDITORIAL — Fraunces serif, deep burgundy, flat ===== */
@@ -187,10 +193,39 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-foreground antialiased;
+    @apply relative bg-background font-sans text-foreground antialiased;
     /* Premium text rendering: kerning, standard ligatures, contextual
        alternates — the quiet baseline for Apple/Stripe/Linear-grade type. */
     font-feature-settings: "kern", "liga", "calt";
+  }
+  /* Ambient glow, fixed behind all content: the page reads as solid black,
+     but frosted-glass surfaces (--surface, backdrop-blur) pick up a faint
+     warmth from it — "something subtly shimmering through the black"
+     rather than a flat, opaque grey panel. Static (no animation, no
+     layout cost) and low-opacity enough to stay out of the way on solid
+     surfaces. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        44rem 32rem at 12% -6%,
+        color-mix(in oklch, var(--brand) 16%, transparent),
+        transparent 65%
+      ),
+      radial-gradient(
+        38rem 30rem at 92% 18%,
+        color-mix(in oklch, var(--brand) 10%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        50rem 40rem at 50% 108%,
+        color-mix(in oklch, var(--brand) 8%, transparent),
+        transparent 60%
+      );
   }
   /* Shared heading treatment (DESIGN.md §3): display font, heavy weight,
      tight tracking, tight leading, balanced wrapping. Component utilities

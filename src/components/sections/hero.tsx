@@ -8,6 +8,7 @@ import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { Magnetic } from "@/components/motion/magnetic";
 import { HeroVisual } from "@/components/sections/hero-visual";
 import { Button } from "@/components/ui/button";
+import type { SiteLogo } from "@/config/site";
 import { cn } from "@/lib/utils";
 import type {
   Action,
@@ -285,10 +286,14 @@ export function HeroFullWidth({
   subtitle,
   actions,
   media,
+  logo,
   align = "center",
   className,
 }: HeroBaseProps & {
   media: HeroImageMedia | HeroVideoMedia;
+  /** Shows the wordmark instead of a text headline — the title stays as an
+   *  sr-only <h1> for the document outline and screen readers. */
+  logo?: SiteLogo;
   align?: "center" | "start";
 }) {
   const centered = align === "center";
@@ -353,9 +358,23 @@ export function HeroFullWidth({
             </FadeIn>
           )}
           <FadeIn>
-            <h1 className="text-4xl leading-[1.05] font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-6xl">
-              {title}
-            </h1>
+            {logo ? (
+              <>
+                <h1 className="sr-only">{title}</h1>
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  priority
+                  className="h-16 w-auto sm:h-20 lg:h-24"
+                />
+              </>
+            ) : (
+              <h1 className="text-4xl leading-[1.05] font-semibold tracking-tight text-balance text-white sm:text-5xl lg:text-6xl">
+                {title}
+              </h1>
+            )}
           </FadeIn>
           {subtitle && (
             <FadeIn>

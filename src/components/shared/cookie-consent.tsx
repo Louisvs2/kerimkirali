@@ -38,7 +38,7 @@ export function ConsentGate({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-4 rounded-2xl border border-border/60 bg-muted p-10 text-center",
+        "flex flex-col items-center justify-center gap-4 rounded-2xl border border-white/10 bg-[var(--surface)] p-10 text-center backdrop-blur-[var(--glass-blur)]",
         className,
       )}
     >

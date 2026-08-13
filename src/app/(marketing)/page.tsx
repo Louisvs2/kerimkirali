@@ -14,6 +14,7 @@ import { Reviews } from "@/components/sections/reviews";
 import { FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 import { home } from "@/content/home";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -36,6 +37,7 @@ export default function HomePage() {
         subtitle={home.hero.subtitle}
         actions={home.hero.actions}
         media={home.hero.media}
+        logo={siteConfig.logo}
       />
       <Section>
         <Container>
@@ -72,18 +74,23 @@ export default function HomePage() {
       <FeatureGrid
         intro={home.services.intro}
         items={home.services.items}
-        background="muted"
+        className="border-t border-white/5"
       />
-      <NumberedList intro={home.why.intro} items={home.why.items} />
+      <NumberedList
+        intro={home.why.intro}
+        items={home.why.items}
+        className="border-t border-white/5"
+      />
       <Gallery
         intro={home.gallery.intro}
         images={home.gallery.images}
-        background="muted"
+        className="border-t border-white/5"
       />
       <Reviews
         intro={home.reviews.intro}
         rating={home.reviews.rating}
         highlights={home.reviews.highlights}
+        className="border-t border-white/5"
       />
       <CTA {...home.cta} variant="cinematic" />
     </>

@@ -27,32 +27,34 @@ function GalleryTile({
 }) {
   return (
     <li className={className}>
-      <FadeIn className="group relative size-full overflow-hidden rounded-2xl">
+      <FadeIn className="group relative size-full overflow-hidden">
         <Image
           src={image.src}
           alt={image.alt}
           fill
           priority={priority}
           sizes={sizes}
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </FadeIn>
     </li>
   );
 }
 
-// Curated bento composition for exactly four images: one large lead image,
-// one wide supporting shot, two small detail tiles — an editorial hierarchy
-// instead of a repeating grid (DESIGN.md §12: images should read as chosen,
-// not filled-in). Any other count falls back to a uniform grid.
+// Full-bleed editorial spread for exactly four images: one large lead shot,
+// one wide supporting frame, two detail tiles — edge-to-edge, no rounding,
+// no gaps wide enough to read as a UI grid. Large photography, not small
+// cards, is what makes this feel like a salon's own lookbook rather than a
+// dashboard widget (DESIGN.md §12). Any other count falls back to a simple
+// contained grid.
 function GalleryBento({ images }: { images: SectionImage[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:grid-rows-2 sm:gap-5 lg:gap-6">
+    <ul className="grid grid-cols-2 gap-px sm:grid-cols-4 sm:grid-rows-2">
       <GalleryTile
         image={images[0]}
         priority
         sizes="(min-width: 640px) 50vw, 100vw"
-        className="col-span-2 aspect-[4/3] sm:col-span-2 sm:row-span-2 sm:aspect-auto"
+        className="col-span-2 aspect-[4/3] sm:col-span-2 sm:row-span-2 sm:aspect-auto sm:min-h-[32rem]"
       />
       <GalleryTile
         image={images[1]}
@@ -75,7 +77,7 @@ function GalleryBento({ images }: { images: SectionImage[] }) {
 
 function GalleryGrid({ images }: { images: SectionImage[] }) {
   return (
-    <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+    <ul className="grid grid-cols-2 gap-px sm:grid-cols-3">
       {images.map((image, i) => (
         <GalleryTile
           key={image.alt}
@@ -97,16 +99,18 @@ export function Gallery({
 }: GalleryProps) {
   return (
     <Section background={background} className={className}>
-      <Container>
-        {intro && <SectionHeading {...intro} />}
-        <FadeInStagger fast className={cn(intro && "mt-14 sm:mt-20")}>
-          {images.length === 4 ? (
-            <GalleryBento images={images} />
-          ) : (
-            <GalleryGrid images={images} />
-          )}
-        </FadeInStagger>
-      </Container>
+      {intro && (
+        <Container>
+          <SectionHeading {...intro} />
+        </Container>
+      )}
+      <FadeInStagger fast className={cn(intro && "mt-14 sm:mt-20")}>
+        {images.length === 4 ? (
+          <GalleryBento images={images} />
+        ) : (
+          <GalleryGrid images={images} />
+        )}
+      </FadeInStagger>
     </Section>
   );
 }

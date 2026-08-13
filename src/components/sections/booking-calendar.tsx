@@ -25,6 +25,25 @@ interface StaffMember {
 type Step = "service" | "staff" | "datetime" | "details" | "success";
 const STEP_ORDER: Step[] = ["service", "staff", "datetime", "details"];
 
+// Shown when the booking backend isn't reachable yet (e.g. the Supabase
+// project from supabase/README.md hasn't been set up). Keeps the flow
+// demoable end-to-end instead of dead-ending in an error — clearly marked
+// as a placeholder rather than pretending these are real team members.
+const PLACEHOLDER_STAFF: StaffMember[] = [
+  {
+    id: "placeholder-1",
+    slug: "platzhalter-1",
+    name: "Mitarbeiter A (Platzhalter)",
+    role: "Wird ergänzt",
+  },
+  {
+    id: "placeholder-2",
+    slug: "platzhalter-2",
+    name: "Mitarbeiter B (Platzhalter)",
+    role: "Wird ergänzt",
+  },
+];
+
 function formatSlot(iso: string) {
   return new Date(iso).toLocaleTimeString("de-DE", {
     hour: "2-digit",
@@ -48,7 +67,7 @@ export function BookingCalendar({ className }: { className?: string }) {
 
   const [staff, setStaff] = useState<StaffMember[]>([]);
   const [staffLoading, setStaffLoading] = useState(true);
-  const [staffError, setStaffError] = useState<string | null>(null);
+  const [staffIsPlaceholder, setStaffIsPlaceholder] = useState(false);
   const [staffId, setStaffId] = useState<string | null>(null);
 
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -67,12 +86,14 @@ export function BookingCalendar({ className }: { className?: string }) {
 
   useEffect(() => {
     listStaffAction()
-      .then(setStaff)
-      .catch(() =>
-        setStaffError(
-          "Mitarbeiter konnten nicht geladen werden. Bitte versuche es erneut oder ruf uns an.",
-        ),
-      )
+      .then((result) => {
+        if (result.length === 0) throw new Error("no staff");
+        setStaff(result);
+      })
+      .catch(() => {
+        setStaff(PLACEHOLDER_STAFF);
+        setStaffIsPlaceholder(true);
+      })
       .finally(() => setStaffLoading(false));
   }, []);
 
@@ -116,7 +137,7 @@ export function BookingCalendar({ className }: { className?: string }) {
     return (
       <div
         className={cn(
-          "flex flex-col items-center gap-4 rounded-2xl border border-border/60 bg-muted p-10 text-center",
+          "flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-[var(--surface)] p-10 text-center backdrop-blur-[var(--glass-blur)]",
           className,
         )}
       >
@@ -134,7 +155,7 @@ export function BookingCalendar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-border/60 bg-muted p-6 sm:p-10",
+        "rounded-2xl border border-white/10 bg-[var(--surface)] p-6 backdrop-blur-[var(--glass-blur)] sm:p-10",
         className,
       )}
     >
@@ -165,7 +186,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                     setServiceSlug(s.slug);
                     setStep("staff");
                   }}
-                  className="flex flex-col items-start gap-1 rounded-xl border border-border/60 bg-background/60 p-4 text-left transition-colors hover:border-brand/40"
+                  className="flex flex-col items-start gap-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
                 >
                   <span className="text-sm font-medium">{s.name}</span>
                   <span className="text-xs text-muted-foreground">
@@ -184,8 +205,10 @@ export function BookingCalendar({ className }: { className?: string }) {
           {staffLoading && (
             <p className="text-sm text-muted-foreground">Lädt …</p>
           )}
-          {staffError && (
-            <p className="text-sm text-destructive">{staffError}</p>
+          {staffIsPlaceholder && (
+            <p className="text-sm text-muted-foreground">
+              Testmodus: Die echte Terminverwaltung folgt in Kürze.
+            </p>
           )}
           <div className="grid gap-3 sm:grid-cols-2">
             {staff.map((member) => (
@@ -196,7 +219,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                   setStaffId(member.id);
                   setStep("datetime");
                 }}
-                className="flex flex-col items-start gap-1 rounded-xl border border-border/60 bg-background/60 p-4 text-left transition-colors hover:border-brand/40"
+                className="flex flex-col items-start gap-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
               >
                 <span className="text-sm font-medium">{member.name}</span>
                 <span className="text-xs text-muted-foreground">
@@ -250,7 +273,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                       setSelectedSlot(slot);
                       setStep("details");
                     }}
-                    className="rounded-lg border border-border/60 bg-background/60 px-3 py-2 text-sm transition-colors hover:border-brand/40"
+                    className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
                   >
                     {formatSlot(slot)}
                   </button>
@@ -263,7 +286,7 @@ export function BookingCalendar({ className }: { className?: string }) {
 
       {step === "details" && service && selectedStaff && selectedSlot && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="rounded-xl border border-border/60 bg-background/60 p-4 text-sm">
+          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm">
             <p className="font-medium">{service.name}</p>
             <p className="mt-1 text-muted-foreground">
               {selectedStaff.name} ·{" "}

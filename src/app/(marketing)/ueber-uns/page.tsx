@@ -5,7 +5,7 @@ import { Section } from "@/components/layout/section";
 import { CTA } from "@/components/sections/cta";
 import { FeatureGrid } from "@/components/sections/features";
 import { HeroStatement } from "@/components/sections/hero";
-import { TeamGrid } from "@/components/sections/team";
+import { TeamCarousel } from "@/components/sections/team";
 import { FadeInStagger, FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { about } from "@/content/about";
@@ -43,7 +43,7 @@ export default function UeberUnsPage() {
         items={about.philosophy.items}
         className="border-t border-white/5"
       />
-      <TeamGrid
+      <TeamCarousel
         intro={about.team.intro}
         members={about.team.members}
         className="border-t border-white/5"

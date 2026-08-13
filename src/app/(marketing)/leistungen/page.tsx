@@ -47,15 +47,15 @@ export default function LeistungenPage() {
                   </h2>
                 </FadeIn>
                 <FadeIn>
-                  <p className="text-base leading-loose text-pretty text-muted-foreground sm:text-lg">
+                  <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-base leading-loose text-muted-foreground sm:text-lg">
                     {category.items.map((item, i) => (
-                      <span key={item}>
+                      <span
+                        key={item}
+                        className="inline-flex items-center gap-x-3 whitespace-nowrap"
+                      >
                         {item}
                         {i < category.items.length - 1 && (
-                          <span
-                            className="mx-3 text-brand-strong/60"
-                            aria-hidden
-                          >
+                          <span className="text-brand-strong/60" aria-hidden>
                             /
                           </span>
                         )}
@@ -80,15 +80,15 @@ export default function LeistungenPage() {
               <p className="text-lg leading-relaxed text-pretty text-muted-foreground">
                 {masterHaircut.description}
               </p>
-              <p className="text-sm leading-relaxed tracking-[0.02em] text-brand-strong uppercase">
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm leading-relaxed tracking-[0.02em] text-brand-strong uppercase">
                 {masterHaircut.analysis.map((item, i) => (
-                  <span key={item}>
+                  <span
+                    key={item}
+                    className="inline-flex items-center gap-x-3 whitespace-nowrap"
+                  >
                     {item}
                     {i < masterHaircut.analysis.length - 1 && (
-                      <span
-                        className="mx-3 text-muted-foreground/50"
-                        aria-hidden
-                      >
+                      <span className="text-muted-foreground/50" aria-hidden>
                         ·
                       </span>
                     )}

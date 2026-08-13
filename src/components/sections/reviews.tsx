@@ -64,12 +64,15 @@ export function Reviews({
             </p>
           </FadeIn>
           <FadeIn className="max-w-2xl">
-            <p className="text-sm leading-loose tracking-[0.02em] text-pretty text-muted-foreground uppercase">
+            <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm leading-loose tracking-[0.02em] text-muted-foreground uppercase">
               {highlights.map((highlight, i) => (
-                <span key={highlight}>
+                <span
+                  key={highlight}
+                  className="inline-flex items-center gap-x-3 whitespace-nowrap"
+                >
                   {highlight}
                   {i < highlights.length - 1 && (
-                    <span className="mx-3 text-brand-strong" aria-hidden>
+                    <span className="text-brand-strong" aria-hidden>
                       ·
                     </span>
                   )}

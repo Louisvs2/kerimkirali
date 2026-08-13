@@ -45,7 +45,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
           <div className="absolute inset-x-0 -top-3 h-6 bg-gradient-to-b from-transparent via-brand/15 to-transparent blur-lg" />
         </div>
-        <div className="grid items-center gap-12 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:gap-20 lg:px-10">
+        <div className="mt-12 grid items-center gap-12 sm:mt-16 lg:mx-auto lg:mt-20 lg:max-w-6xl lg:grid-cols-2 lg:gap-20 lg:px-10">
           <FadeIn>
             <div className="relative aspect-[4/5] w-full overflow-hidden lg:rounded-2xl">
               <Image

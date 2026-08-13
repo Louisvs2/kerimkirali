@@ -98,6 +98,69 @@ export const masterHaircut = {
   ],
 };
 
+export interface BookableService {
+  slug: string;
+  name: string;
+  categorySlug: string;
+  durationMinutes: number;
+}
+
+// Curated, bookable subset of the full service menu above — not every line
+// item is a standalone appointment (nobody books "Waschen" alone). Duration
+// is the single source of truth the booking system uses to compute slots;
+// it is intentionally not split any finer than this without real input from
+// Kerem on how long each treatment actually takes.
+export const bookableServices: BookableService[] = [
+  {
+    slug: "herrenschnitt",
+    name: "Herrenschnitt",
+    categorySlug: "herren",
+    durationMinutes: 30,
+  },
+  {
+    slug: "herrenschnitt-bart",
+    name: "Herrenschnitt & Bartpflege",
+    categorySlug: "herren",
+    durationMinutes: 45,
+  },
+  {
+    slug: "skin-fade",
+    name: "Skin Fade",
+    categorySlug: "herren",
+    durationMinutes: 45,
+  },
+  {
+    slug: "master-haircut",
+    name: "Master Haircut",
+    categorySlug: "herren",
+    durationMinutes: 60,
+  },
+  {
+    slug: "damenschnitt",
+    name: "Damenschnitt & Styling",
+    categorySlug: "damen",
+    durationMinutes: 45,
+  },
+  {
+    slug: "coloration",
+    name: "Coloration / Balayage",
+    categorySlug: "damen",
+    durationMinutes: 90,
+  },
+  {
+    slug: "bartrasur",
+    name: "Bartrasur & Konturen",
+    categorySlug: "barber",
+    durationMinutes: 30,
+  },
+  {
+    slug: "pflegebehandlung",
+    name: "Pflegebehandlung",
+    categorySlug: "pflege",
+    durationMinutes: 30,
+  },
+];
+
 export const servicesPage = {
   hero: {
     eyebrow: "Leistungen",

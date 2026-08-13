@@ -4,14 +4,23 @@
 import type { SectionIntro } from "@/types/content";
 
 export const contact: {
+  booking: { intro: SectionIntro };
   intro: SectionIntro;
   map: { title: string; description: string; action: string };
 } = {
+  booking: {
+    intro: {
+      eyebrow: "Termin buchen",
+      title: "In vier Schritten zum Termin",
+      subtitle:
+        "Leistung, Mitarbeiter, Datum und Uhrzeit wählen — die Verfügbarkeit wird live geprüft, dein Termin ist sofort bestätigt.",
+    },
+  },
   intro: {
     eyebrow: "Kontakt",
-    title: "Termin vereinbaren",
+    title: "Lieber persönlich sprechen?",
     subtitle:
-      "Der Salon arbeitet ausschließlich auf Terminbasis. Rufen Sie an, schreiben Sie uns oder nutzen Sie das Formular — wir melden uns zeitnah zurück.",
+      "Rufen Sie an oder schreiben Sie uns — wir melden uns zeitnah zurück.",
   },
   map: {
     title: "So finden Sie uns",

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Check } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -7,7 +6,6 @@ import { CTA } from "@/components/sections/cta";
 import { HeroCentered } from "@/components/sections/hero";
 import { FadeIn, FadeInStagger } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   masterHaircut,
   serviceCategories,
@@ -29,43 +27,44 @@ export default function LeistungenPage() {
         {...servicesPage.hero}
         className="py-20 sm:py-24 lg:py-28"
       />
+      {/* Editorial menu, not a feature-comparison grid: each category reads
+          top-to-bottom like a salon's own service card (DESIGN.md §14). */}
       <Section className="pt-0">
         <Container>
-          <FadeInStagger fast>
-            <ul className="grid gap-6 sm:grid-cols-2 lg:gap-8">
-              {serviceCategories.map((category) => (
-                <li key={category.slug}>
-                  <FadeIn className="h-full">
-                    <Card className="h-full">
-                      <CardHeader>
-                        <div className="mb-2 flex size-11 items-center justify-center rounded-xl border border-border/60 bg-background/60 text-brand">
-                          <category.icon className="size-5" aria-hidden />
-                        </div>
-                        <CardTitle className="text-lg">
-                          {category.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                          {category.items.map((item) => (
-                            <li
-                              key={item}
-                              className="flex items-start gap-2 text-sm text-muted-foreground"
-                            >
-                              <Check
-                                className="mt-0.5 size-4 shrink-0 text-brand"
-                                aria-hidden
-                              />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </FadeIn>
-                </li>
-              ))}
-            </ul>
+          <FadeInStagger className="divide-y divide-border/60 border-t border-border/60">
+            {serviceCategories.map((category) => (
+              <div
+                key={category.slug}
+                className="grid gap-4 py-10 sm:grid-cols-[1fr_2fr] sm:gap-8 sm:py-14 lg:grid-cols-[1fr_3fr]"
+              >
+                <FadeIn className="flex items-start gap-4 sm:block">
+                  <category.icon
+                    className="size-6 shrink-0 text-brand-strong sm:mb-4"
+                    aria-hidden
+                  />
+                  <h2 className="font-display text-2xl leading-tight font-semibold tracking-tight sm:text-3xl">
+                    {category.title}
+                  </h2>
+                </FadeIn>
+                <FadeIn>
+                  <p className="text-base leading-loose text-pretty text-muted-foreground sm:text-lg">
+                    {category.items.map((item, i) => (
+                      <span key={item}>
+                        {item}
+                        {i < category.items.length - 1 && (
+                          <span
+                            className="mx-3 text-brand-strong/60"
+                            aria-hidden
+                          >
+                            /
+                          </span>
+                        )}
+                      </span>
+                    ))}
+                  </p>
+                </FadeIn>
+              </div>
+            ))}
           </FadeInStagger>
         </Container>
       </Section>
@@ -81,17 +80,21 @@ export default function LeistungenPage() {
               <p className="text-lg leading-relaxed text-pretty text-muted-foreground">
                 {masterHaircut.description}
               </p>
-              <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
-                {masterHaircut.analysis.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-2 text-sm font-medium"
-                  >
-                    <Check className="size-4 shrink-0 text-brand" aria-hidden />
+              <p className="text-sm leading-relaxed tracking-[0.02em] text-brand-strong uppercase">
+                {masterHaircut.analysis.map((item, i) => (
+                  <span key={item}>
                     {item}
-                  </li>
+                    {i < masterHaircut.analysis.length - 1 && (
+                      <span
+                        className="mx-3 text-muted-foreground/50"
+                        aria-hidden
+                      >
+                        ·
+                      </span>
+                    )}
+                  </span>
                 ))}
-              </ul>
+              </p>
             </FadeIn>
           </div>
         </Container>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -6,7 +7,7 @@ import { Section, type SectionBackground } from "@/components/layout/section";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { Action } from "@/types/content";
+import type { Action, SectionImage } from "@/types/content";
 
 interface CTAProps {
   title: string;
@@ -17,10 +18,14 @@ interface CTAProps {
   /**
    * `centered` — calm, spacious closing CTA, the standard end of a page.
    * `panel` — contained inverted panel, a stronger beat mid-page.
+   * `cinematic` — full-bleed photo with a dark scrim, echoing the hero
+   *   treatment; the premium closing statement for a photography-led brand.
    */
-  variant?: "centered" | "panel";
+  variant?: "centered" | "panel" | "cinematic";
   /** Section background — applies to the `centered` variant only. */
   background?: SectionBackground;
+  /** Required when `variant="cinematic"`. */
+  image?: SectionImage;
   className?: string;
 }
 
@@ -115,11 +120,73 @@ function CTAPanel({
   );
 }
 
-// A single call-to-action section with two premium layouts. Consumers pick a
-// layout via `variant`; both share the same typed content props.
-export function CTA({ variant = "centered", ...props }: CTAProps) {
+function CTACinematic({
+  title,
+  subtitle,
+  action,
+  note,
+  image,
+  className,
+}: Omit<CTAProps, "variant" | "background"> & { image: SectionImage }) {
+  return (
+    <section
+      className={cn(
+        "relative isolate overflow-hidden py-28 sm:py-36",
+        className,
+      )}
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="100vw"
+        className="-z-10 object-cover"
+      />
+      {/* Darker, more even scrim than the hero — this is a closing
+          statement, not a stage for a headline (DESIGN.md §12). */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/75 to-black/85"
+      />
+      <Container>
+        <FadeIn className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
+          <h2 className="text-3xl leading-[1.05] font-semibold tracking-tight text-balance text-white sm:text-4xl lg:text-5xl">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="text-lg leading-relaxed text-pretty text-white/75 sm:text-xl">
+              {subtitle}
+            </p>
+          )}
+          <div className="mt-4 flex flex-col items-center gap-4">
+            <Button asChild size="lg" className="group">
+              <Link href={action.href}>
+                {action.label}
+                <ArrowRight
+                  aria-hidden
+                  className="transition-transform duration-300 ease-out group-hover:translate-x-0.5 motion-reduce:transition-none"
+                />
+              </Link>
+            </Button>
+            {note && <p className="text-sm text-white/65">{note}</p>}
+          </div>
+        </FadeIn>
+      </Container>
+    </section>
+  );
+}
+
+// A single call-to-action section with three premium layouts. Consumers pick
+// a layout via `variant`; all share the same typed content props.
+export function CTA({ variant = "centered", image, ...props }: CTAProps) {
   if (variant === "panel") {
     return <CTAPanel {...props} />;
+  }
+  if (variant === "cinematic") {
+    if (!image) {
+      throw new Error('CTA variant="cinematic" requires an `image` prop.');
+    }
+    return <CTACinematic {...props} image={image} />;
   }
   return <CTACentered {...props} />;
 }

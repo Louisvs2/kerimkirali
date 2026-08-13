@@ -2,9 +2,8 @@
 // follows the client's own briefing (Website-Struktur): Hero → Über Kerem →
 // Dienstleistungen → Warum Kerem Kirali → Galerie → Bewertungen → CTA.
 
-import { CalendarCheck, Handshake, Scissors, Target } from "lucide-react";
-
 import type { Feature } from "@/components/sections/features";
+import type { NumberedItem } from "@/components/sections/numbered-list";
 import { serviceCategories } from "@/content/services";
 import type {
   Action,
@@ -27,14 +26,20 @@ interface HomeContent {
     action: Action;
   };
   services: { intro: SectionIntro; items: Feature[] };
-  why: { intro: SectionIntro; items: Feature[] };
+  why: { intro: SectionIntro; items: NumberedItem[] };
   gallery: { intro: SectionIntro; images: SectionImage[] };
   reviews: {
     intro: SectionIntro;
     rating: { value: number; platform: string };
     highlights: string[];
   };
-  cta: { title: string; subtitle: string; action: Action; note: string };
+  cta: {
+    title: string;
+    subtitle: string;
+    action: Action;
+    note: string;
+    image: SectionImage;
+  };
 }
 
 export const home: HomeContent = {
@@ -84,30 +89,26 @@ export const home: HomeContent = {
     },
     items: [
       {
-        icon: Target,
         title: "Individuelle Typberatung",
         description:
           "Kein Trend von der Stange: jeder Schnitt wird auf Gesichtsform, Kopfform und Haarstruktur abgestimmt.",
       },
       {
-        icon: CalendarCheck,
         title: "Ausschließlich auf Termin",
         description:
           "Keine Hektik, keine langen Wartezeiten — volle Aufmerksamkeit für jeden Gast.",
       },
       {
-        icon: Scissors,
         title: "Handwerk auf höchstem Niveau",
         description:
           "Präzise Techniken, hochwertige Produkte und ein Auge fürs Detail, das man sieht.",
       },
       {
-        icon: Handshake,
         title: "Vertrauen & Persönlichkeit",
         description:
           "Ein Ort zum Ankommen — nicht nur ein Haarschnitt, sondern eine Auszeit vom Alltag.",
       },
-    ] satisfies Feature[],
+    ] satisfies NumberedItem[],
   },
   gallery: {
     intro: {
@@ -158,5 +159,9 @@ export const home: HomeContent = {
       "Der Salon arbeitet ausschließlich auf Terminbasis — damit Sie die volle Aufmerksamkeit bekommen, die Sie verdienen.",
     action: { label: "Termin vereinbaren", href: "/kontakt#termin" },
     note: "Friedrich-Ebert-Straße 53, 34117 Kassel",
+    image: {
+      src: "/images/salon/chair-detail.jpg",
+      alt: "Detailaufnahme eines Barbierstuhls im Salon",
+    },
   },
 };

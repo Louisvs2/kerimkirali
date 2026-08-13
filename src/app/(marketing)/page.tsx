@@ -9,6 +9,7 @@ import { CTA } from "@/components/sections/cta";
 import { FeatureGrid } from "@/components/sections/features";
 import { Gallery } from "@/components/sections/gallery";
 import { HeroFullWidth } from "@/components/sections/hero";
+import { NumberedList } from "@/components/sections/numbered-list";
 import { Reviews } from "@/components/sections/reviews";
 import { FadeIn } from "@/components/motion/fade-in";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -73,7 +74,7 @@ export default function HomePage() {
         items={home.services.items}
         background="muted"
       />
-      <FeatureGrid intro={home.why.intro} items={home.why.items} />
+      <NumberedList intro={home.why.intro} items={home.why.items} />
       <Gallery
         intro={home.gallery.intro}
         images={home.gallery.images}
@@ -84,7 +85,7 @@ export default function HomePage() {
         rating={home.reviews.rating}
         highlights={home.reviews.highlights}
       />
-      <CTA {...home.cta} variant="panel" />
+      <CTA {...home.cta} variant="cinematic" />
     </>
   );
 }

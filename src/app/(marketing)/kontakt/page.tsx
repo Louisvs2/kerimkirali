@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
+import { BookingCalendar } from "@/components/sections/booking-calendar";
 import { ContactSection } from "@/components/sections/contact";
 import { ContactForm } from "@/components/sections/contact-form";
+import { FadeIn } from "@/components/motion/fade-in";
+import { SectionHeading } from "@/components/shared/section-heading";
 import { ConsentGate } from "@/components/shared/cookie-consent";
 import { siteConfig } from "@/config/site";
 import { contact } from "@/content/contact";
@@ -23,13 +26,21 @@ export default function KontaktPage() {
 
   return (
     <>
+      <Section id="termin" className="pt-32 sm:pt-40">
+        <Container>
+          <SectionHeading {...contact.booking.intro} />
+          <FadeIn className="mx-auto mt-14 max-w-3xl sm:mt-20">
+            <BookingCalendar />
+          </FadeIn>
+        </Container>
+      </Section>
       <ContactSection
-        id="termin"
         intro={contact.intro}
         email={siteConfig.contact.email}
         phone={siteConfig.contact.phone}
         address={siteConfig.contact.address}
         openingHours={siteConfig.openingHours}
+        background="muted"
       >
         <ContactForm />
       </ContactSection>

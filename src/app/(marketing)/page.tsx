@@ -37,7 +37,7 @@ export default function HomePage() {
         media={home.hero.media}
         logo={siteConfig.logo}
       />
-      <Section>
+      <Section className="pt-0">
         <div className="grid items-center gap-12 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:gap-20 lg:px-10">
           <FadeIn>
             <div className="relative aspect-[4/5] w-full overflow-hidden lg:rounded-2xl">
@@ -47,6 +47,10 @@ export default function HomePage() {
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover grayscale"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-background to-transparent sm:h-32"
               />
             </div>
           </FadeIn>

@@ -72,7 +72,7 @@ export function Reviews({
                 >
                   {highlight}
                   {i < highlights.length - 1 && (
-                    <span className="text-brand-strong" aria-hidden>
+                    <span className="text-xs text-brand-strong" aria-hidden>
                       ·
                     </span>
                   )}

@@ -23,4 +23,4 @@ export const lookDescriptions: Record<LookName, string> = {
 };
 
 /** The active look. Change this one line per client project. */
-export const activeLook: LookName = "glass";
+export const activeLook: LookName = "editorial";

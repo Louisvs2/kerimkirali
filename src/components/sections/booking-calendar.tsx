@@ -137,7 +137,7 @@ export function BookingCalendar({ className }: { className?: string }) {
     return (
       <div
         className={cn(
-          "flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-[var(--surface)] p-10 text-center backdrop-blur-[var(--glass-blur)]",
+          "flex flex-col items-center gap-4 rounded-2xl border border-border bg-[var(--surface)] p-10 text-center backdrop-blur-[var(--glass-blur)]",
           className,
         )}
       >
@@ -155,7 +155,7 @@ export function BookingCalendar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-white/10 bg-[var(--surface)] p-6 backdrop-blur-[var(--glass-blur)] sm:p-10",
+        "rounded-2xl border border-border bg-[var(--surface)] p-6 backdrop-blur-[var(--glass-blur)] sm:p-10",
         className,
       )}
     >
@@ -186,7 +186,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                     setServiceSlug(s.slug);
                     setStep("staff");
                   }}
-                  className="flex flex-col items-start gap-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
+                  className="flex flex-col items-start gap-1 rounded-xl border border-border p-4 text-left transition-colors hover:border-brand/40 hover:bg-accent"
                 >
                   <span className="text-sm font-medium">{s.name}</span>
                   <span className="text-xs text-muted-foreground">
@@ -219,7 +219,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                   setStaffId(member.id);
                   setStep("datetime");
                 }}
-                className="flex flex-col items-start gap-1 rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
+                className="flex flex-col items-start gap-1 rounded-xl border border-border p-4 text-left transition-colors hover:border-brand/40 hover:bg-accent"
               >
                 <span className="text-sm font-medium">{member.name}</span>
                 <span className="text-xs text-muted-foreground">
@@ -273,7 +273,7 @@ export function BookingCalendar({ className }: { className?: string }) {
                       setSelectedSlot(slot);
                       setStep("details");
                     }}
-                    className="rounded-lg border border-white/10 bg-white/[0.02] px-3 py-2 text-sm transition-colors hover:border-brand/40 hover:bg-white/[0.04]"
+                    className="rounded-lg border border-border px-3 py-2 text-sm transition-colors hover:border-brand/40 hover:bg-accent"
                   >
                     {formatSlot(slot)}
                   </button>
@@ -286,7 +286,7 @@ export function BookingCalendar({ className }: { className?: string }) {
 
       {step === "details" && service && selectedStaff && selectedSlot && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm">
+          <div className="rounded-xl border border-border bg-accent/50 p-4 text-sm">
             <p className="font-medium">{service.name}</p>
             <p className="mt-1 text-muted-foreground">
               {selectedStaff.name} ·{" "}

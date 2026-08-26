@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" data-look={activeLook} className={`dark ${fontVariables}`}>
+    <html lang="de" data-look={activeLook} className={fontVariables}>
       <body>
         {children}
         <WhatsAppButton />

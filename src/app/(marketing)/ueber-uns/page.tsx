@@ -41,12 +41,12 @@ export default function UeberUnsPage() {
       <FeatureGrid
         intro={about.philosophy.intro}
         items={about.philosophy.items}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <TeamCarousel
         intro={about.team.intro}
         members={about.team.members}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <CTA {...about.cta} />
     </>

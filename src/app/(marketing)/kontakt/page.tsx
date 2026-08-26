@@ -40,7 +40,7 @@ export default function KontaktPage() {
         phone={siteConfig.contact.phone}
         address={siteConfig.contact.address}
         openingHours={siteConfig.openingHours}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       >
         <ContactForm />
       </ContactSection>

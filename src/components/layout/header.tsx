@@ -12,7 +12,7 @@ import { navigation } from "@/config/navigation";
 // only client leaf.
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[var(--surface)] backdrop-blur-[var(--glass-blur)]">
+    <header className="sticky top-0 z-50 border-b border-border bg-[var(--surface)] backdrop-blur-[var(--glass-blur)]">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
         <nav

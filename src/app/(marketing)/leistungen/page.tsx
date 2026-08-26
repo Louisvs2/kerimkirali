@@ -68,7 +68,7 @@ export default function LeistungenPage() {
           </FadeInStagger>
         </Container>
       </Section>
-      <Section className="border-t border-white/5">
+      <Section className="border-t border-border/60">
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <SectionHeading

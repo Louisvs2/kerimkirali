@@ -230,6 +230,12 @@
         transparent 58%
       );
   }
+  /* Flat looks (hairline borders, no blur) don't want an ambient glow — on
+     a light ground it would read as a smudge, not a glass effect. */
+  :root[data-look="editorial"] body::before,
+  :root[data-look="minimal"] body::before {
+    background: none;
+  }
   /* Shared heading treatment (DESIGN.md §3): display font, heavy weight,
      tight tracking, tight leading, balanced wrapping. Component utilities
      set the size per level, so the hierarchy stays intact. */

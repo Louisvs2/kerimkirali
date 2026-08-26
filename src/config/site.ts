@@ -27,6 +27,9 @@ export interface SiteConfig {
   description: string;
   /** Wordmark shown in the header/footer instead of the plain text name. */
   logo: SiteLogo;
+  /** White-ink variant for placement over dark media (the hero video) —
+   *  the default `logo` is dark ink, meant for the light page background. */
+  logoInverse?: SiteLogo;
   /** Public contact channels — shown on the contact page. */
   contact: {
     email: string;
@@ -52,6 +55,12 @@ export const siteConfig: SiteConfig = {
     "Premium Hairstylist & Barber in Kassel — individuelle Beratung, präzises Handwerk und ein Master Haircut, der auf Gesichtsform und Haarstruktur abgestimmt wird.",
   logo: {
     src: "/images/logo/kerem-kirali-logo.png",
+    alt: "Kerem Kirali — Hairstylist & Barber",
+    width: 1650,
+    height: 290,
+  },
+  logoInverse: {
+    src: "/images/logo/kerem-kirali-logo-inverse.png",
     alt: "Kerem Kirali — Hairstylist & Barber",
     width: 1649,
     height: 289,

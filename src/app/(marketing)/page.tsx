@@ -35,14 +35,14 @@ export default function HomePage() {
         title={home.hero.title}
         actions={home.hero.actions}
         media={home.hero.media}
-        logo={siteConfig.logo}
+        logo={siteConfig.logoInverse}
       />
       <Section className="pt-0">
         {/* Glass-look seam marking where the hero video's fade-out hands off
             to this section — a thin shimmering line rather than a hard cut
             or a second fade competing with the video's own. */}
         <div aria-hidden className="relative h-px w-full">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="absolute inset-x-0 -top-3 h-6 bg-gradient-to-b from-transparent via-brand/15 to-transparent blur-lg" />
         </div>
         <div className="mt-12 grid items-center gap-12 sm:mt-16 lg:mx-auto lg:mt-20 lg:max-w-6xl lg:grid-cols-2 lg:gap-20 lg:px-10">
@@ -77,23 +77,23 @@ export default function HomePage() {
       <FeatureGrid
         intro={home.services.intro}
         items={home.services.items}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <NumberedList
         intro={home.why.intro}
         items={home.why.items}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <Gallery
         intro={home.gallery.intro}
         images={home.gallery.images}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <Reviews
         intro={home.reviews.intro}
         rating={home.reviews.rating}
         highlights={home.reviews.highlights}
-        className="border-t border-white/5"
+        className="border-t border-border/60"
       />
       <CTA {...home.cta} variant="cinematic" />
     </>
